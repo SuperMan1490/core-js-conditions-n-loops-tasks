@@ -148,39 +148,63 @@ function convertToRomanNumerals(num) {
  *  '1950.2'  => 'one nine five zero point two'
  */
 function convertNumberToString(numberStr) {
-  const digitWords = [
-    'zero',
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine',
-  ];
   let result = '';
-  let isNegative = false;
-  let hasDecimal = false;
 
   for (let i = 0; i < numberStr.length; i += 1) {
     const char = numberStr[i];
-    if (char === '-') {
-      isNegative = true;
-      result += 'minus ';
-    } else if (char === '.' || char === ',') {
-      hasDecimal = true;
-      result += 'point ';
-    } else {
-      const digit = Number(char);
-      if (!Number.isNaN(digit)) {
-        result += `${digitWords[digit]} `;
-      }
+
+    switch (char) {
+      case '-':
+        result += 'minus';
+        break;
+      case '.':
+      case ',':
+        result += 'point';
+        break;
+      default:
+        if (char >= '0' && char <= '9') {
+          switch (char) {
+            case '0':
+              result += 'zero';
+              break;
+            case '1':
+              result += 'one';
+              break;
+            case '2':
+              result += 'two';
+              break;
+            case '3':
+              result += 'three';
+              break;
+            case '4':
+              result += 'four';
+              break;
+            case '5':
+              result += 'five';
+              break;
+            case '6':
+              result += 'six';
+              break;
+            case '7':
+              result += 'seven';
+              break;
+            case '8':
+              result += 'eight';
+              break;
+            case '9':
+              result += 'nine';
+              break;
+            default:
+              break;
+          }
+        }
+        break;
+    }
+    if (i < numberStr.length - 1) {
+      result += ' ';
     }
   }
-
-  return result.trim();
+  return result;
 }
 
 /**
